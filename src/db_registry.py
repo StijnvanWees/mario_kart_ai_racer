@@ -111,8 +111,13 @@ def get_lastest_q_model_object_handler(connection, cursor):
     return QModelObject(cursor.fetchall()[0])
 
 
-def get_race_objects_handler(connection, cursor):
-    cursor.execute('SELECT * FROM races WHERE ultimate_performance_mode == 0')
+def get_race_objects_handler(connection, cursor, ultimate_performance_mode_entries):
+    ultimate_performance_mode_int = 0
+    if ultimate_performance_mode_entries:
+        ultimate_performance_mode_int = 1
+
+    t = (ultimate_performance_mode_int,)
+    cursor.execute('SELECT * FROM races WHERE ultimate_performance_mode == ?', t)
     datas = cursor.fetchall()
     return [RaceObject(data) for data in datas]
 
@@ -130,8 +135,8 @@ class Registry:
     def get_latest_q_model_object(self):
         return process_db_request(get_lastest_q_model_object_handler, [])
 
-    def get_race_data_objects(self):
-        return process_db_request(get_race_objects_handler, [])
+    def get_race_data_objects(self, ultimate_performance_mode_entries=False):
+        return process_db_request(get_race_objects_handler, [ultimate_performance_mode_entries])
 
 
 registry = Registry()
