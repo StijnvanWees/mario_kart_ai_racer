@@ -1,4 +1,4 @@
-from src.emulator_actions import *
+from src.mario_kart_sequences import *
 from src.config import *
 from src.policies import policy_manager
 from src.detection_models import detection_models
