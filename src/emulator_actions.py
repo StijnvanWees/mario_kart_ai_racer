@@ -12,8 +12,7 @@ from src.player_controllers import player_controllers
 from src.screen_recorder import make_screen_shot
 from src.policies import policy_manager
 from src.detection_models import detection_models
-from src.replay_buffer import replay_buffer
-from src.shared_process_data import shared_process_data
+from src.replay_buffer import store_race_in_replay_buffer
 
 
 def key_tab(btn):
@@ -46,8 +45,6 @@ def start_mario_kart():
 
 
 def restart_race(previous_race_game_info):
-    [player_controller.reset() for player_controller in player_controllers.values()]
-
     if previous_race_game_info["has_finished"] == 1:
         sleep(10.0)
         player_controllers["1"].menu_tab('a')
@@ -62,6 +59,7 @@ def restart_race(previous_race_game_info):
         player_controllers["1"].menu_tab('a')
     else:
         key_tab('a')
+        sleep(1.0)
         player_controllers["1"].menu_tab('d')
         player_controllers["1"].menu_tab('a')
         player_controllers["1"].menu_tab('l')
@@ -74,8 +72,6 @@ def start_mario_kart_race():
     player_controllers["1"].menu_tab('a')
     player_controllers["1"].menu_tab('a')
     player_controllers["1"].menu_tab('a')
-
-    shared_process_data.join_process()
 
     [player_controllers["1"].menu_tab('r') for _ in range(2)]  # cc
     player_controllers["1"].menu_tab('a')
@@ -112,6 +108,16 @@ def go_to_next_race():
         sleep(3.0)
         player_controllers["1"].menu_tab('a')
 
+    sleep(2.0)
+
+
+def complete_race(game_info, state_datas, actions, frames):
+    [player_controller.reset() for player_controller in player_controllers.values()]
+    game_info = store_race_in_replay_buffer(game_info, state_datas, actions)
+
+    print("fps count:", float(frames) / game_info["race_time"])
+    print(game_info)
+
 
 def process_race(game_info):
     state_datas = []
@@ -122,13 +128,13 @@ def process_race(game_info):
     if game_info["court_id"] > 0:
         go_to_next_race()
 
-    sleep(2.0)
-
+    sleep(3.0)
     player_controllers["1"].key_tab('a')
 
-    sleep(6.65)
 
+    sleep(6.65)
     race_time = default_timer()
+
     player_controllers["1"].perform_action([[0, 1, 0], [1, 0, 0]])
 
     detection_models.reset_for_race()
@@ -137,6 +143,7 @@ def process_race(game_info):
 
     while 1:
         t = default_timer()
+        frames += 1
 
         if USE_HUMAN_PLAYER_POLICY:
             actions.append(policy_manager.next_action(state_data))
@@ -164,19 +171,16 @@ def process_race(game_info):
             end_race_for_max_duration = game_info["race_time"] > MAX_RACE_DURATION
             end_race_for_last_for_frames = detection_models.detect_end_last_positions(screenshot)
 
+        if game_info["skip_replay_buffer_data_storage"]:
+            end_race_for_last_for_frames = False
+
         if end_race_for_finish or end_race_for_max_duration or end_race_for_last_for_frames:
             game_info["has_finished"] = 0
             if end_race_for_finish:
                 game_info["has_finished"] = 1
-
-            game_info = replay_buffer.store_race_and_return_game_info(game_info, state_datas, actions)
             break
 
         if not ULTIMATE_PERFORMANCE_MODE:
             sleep(max(0.0, FRAME_TIME - (default_timer() - t)))
 
-        frames += 1
-
-    print("fps count:", float(frames) / game_info["race_time"])
-    sleep(1.0)
-    print(game_info)
+    complete_race(game_info, state_datas, actions, frames)
