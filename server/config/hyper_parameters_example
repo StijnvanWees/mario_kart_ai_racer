@@ -1,0 +1,19 @@
+###########################################################################
+####### PAST CONTENTS TO .config/hyper_parameters.py AND FILL PATHS #######
+###########################################################################
+
+
+DISCOUNT_FACTOR_STEERING = 0.85
+DISCOUNT_FACTOR_SHOOTING = 0.95
+
+
+# LOCAL FILE PATHS
+REWARD_DETECTION_MODEL_PATH = { ADD MODEL PATH HERE }
+REWARD_CONTINUOUS_DIRECTION_PATH = { ADD MODEL PATH HERE }
+
+
+# SHARED FILE PATHS
+BASE_LOCATION = { ADD PATH HERE }
+Q_MODEL_PATH = BASE_LOCATION + { ADD PATH HERE }
+REPLAY_BUFFER_PATH = BASE_LOCATION + { ADD PATH HERE }
+REGISTRY_DB_FILEPATH = BASE_LOCATION + { ADD DATABASE PATH HERE }

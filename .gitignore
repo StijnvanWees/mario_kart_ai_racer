@@ -2,5 +2,5 @@
 .ipynb_checkpoints/
 sandbox/
 **/__pycache__/
-/driver_client/config/hyper_parameters.py
+/client_driver/config/hyper_parameters.py
 *.ipynb
