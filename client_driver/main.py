@@ -30,7 +30,7 @@ class Main:
 
             game_info = start_mario_kart_race()
 
-            for i in range(3):
+            for i in range(4):
                 game_info["active_q_model_id"] = policy_manager.get_active_q_model_id()
                 game_info["court_id"] = i
                 game_info["race_id"] = get_new_id()

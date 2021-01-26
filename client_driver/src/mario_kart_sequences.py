@@ -131,7 +131,6 @@ def process_race(game_info):
     sleep(3.0)
     player_controllers["1"].key_tab('a')
 
-
     sleep(6.65)
     race_time = default_timer()
 
@@ -164,7 +163,7 @@ def process_race(game_info):
 
         end_race_for_finish = detection_models.detect_goal(state_data)
 
-        if ULTIMATE_PERFORMANCE_MODE:
+        if ULTIMATE_PERFORMANCE_MODE or USE_HUMAN_PLAYER_POLICY:
             end_race_for_max_duration = False
             end_race_for_last_for_frames = False
         else:
