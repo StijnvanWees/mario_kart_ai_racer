@@ -5,6 +5,8 @@ from src.detection_models import detection_models
 from src.policy_try_factors import update_policy_try_factor
 from src.db_registry import registry
 
+import sys
+sys.path.append('.')
 
 class Main:
     def __init__(self):
