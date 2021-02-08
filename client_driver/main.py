@@ -8,6 +8,7 @@ from src.db_registry import registry
 import sys
 sys.path.append('.')
 
+
 class Main:
     def __init__(self):
         self.reload_models()

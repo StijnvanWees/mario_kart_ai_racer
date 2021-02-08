@@ -1,5 +1,5 @@
 ###########################################################################
-####### PAST CONTENTS TO .config/hyper_parameters.py AND FILL PATHS #######
+####### PASTE CONTENTS TO .config/hyper_parameters.py AND FILL PATHS #######
 ###########################################################################
 
 
@@ -9,7 +9,6 @@ DISCOUNT_FACTOR_SHOOTING = 0.95
 
 # LOCAL FILE PATHS
 REWARD_DETECTION_MODEL_PATH = { ADD MODEL PATH HERE }
-REWARD_CONTINUOUS_DIRECTION_PATH = { ADD MODEL PATH HERE }
 
 
 # SHARED FILE PATHS
