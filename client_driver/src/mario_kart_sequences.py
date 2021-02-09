@@ -152,7 +152,7 @@ def process_race(game_info):
         else:
             screenshot = make_screen_shot((360, 270))
             state_data = detection_models.get_state_data(screenshot)
-            state_datas.append(np.array(state_data[0], dtype=np.float16))
+            state_datas.append(np.array(state_data[0]))
 
         if not USE_HUMAN_PLAYER_POLICY:
             action = policy_manager.next_action(state_data)
