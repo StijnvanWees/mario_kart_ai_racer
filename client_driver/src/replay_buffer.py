@@ -34,9 +34,9 @@ def store_race_in_replay_buffer(game_info, state_datas, actions):
     state_datas_converted = [tf.cast(state_data * 255.0, dtype=tf.uint8)
                              for state_data in state_datas[from_frame_index:to_frame_index]]
     actions_0_converted = [tf.cast(action, dtype=tf.uint8)
-                 for action in list(actions_t[:, 0])[from_frame_index:to_frame_index]]
+                           for action in list(actions_t[:, 0])[from_frame_index:to_frame_index]]
     actions_1_converted = [tf.cast(action, dtype=tf.uint8)
-                 for action in list(actions_t[:, 1])[from_frame_index:to_frame_index]]
+                           for action in list(actions_t[:, 1])[from_frame_index:to_frame_index]]
 
     with tf.device("cpu:0"):
         dataset = tf.data.Dataset.from_tensor_slices(

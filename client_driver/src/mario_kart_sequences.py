@@ -170,7 +170,7 @@ def process_race(game_info):
             end_race_for_max_duration = game_info["race_time"] > MAX_RACE_DURATION
             end_race_for_last_for_frames = detection_models.detect_end_last_positions(screenshot)
 
-        if game_info["skip_replay_buffer_data_storage"]:
+        if game_info["skip_replay_buffer_data_storage"] or not game_info["shutdown_when_frames_last"]:
             end_race_for_last_for_frames = False
 
         if end_race_for_finish or end_race_for_max_duration or end_race_for_last_for_frames:

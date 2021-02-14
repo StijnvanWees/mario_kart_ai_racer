@@ -41,6 +41,8 @@ class Main:
                 game_info["ultimate_performance_mode"] = ULTIMATE_PERFORMANCE_MODE
                 game_info["skip_replay_buffer_data_storage"] = \
                     registry.get_court_settings_object(game_info).get_skip_replay_buffer_storage()
+                game_info["shutdown_when_frames_last"] = \
+                    registry.get_court_settings_object(game_info).get_shutdown_when_frames_last()
 
                 if ULTIMATE_PERFORMANCE_MODE:
                     game_info["skip_replay_buffer_data_storage"] = 1

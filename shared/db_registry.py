@@ -86,6 +86,7 @@ class CourtSettingsObject:
         self.court_id = data[1]
         self.max_policy_try_factor = data[2]
         self.skip_replay_buffer_storage = data[3]
+        self.shutdown_when_frames_last = data[4]
 
     def get_tournament_id(self):
         return self.tournament_id
@@ -98,6 +99,9 @@ class CourtSettingsObject:
 
     def get_skip_replay_buffer_storage(self):
         return self.skip_replay_buffer_storage
+
+    def get_shutdown_when_frames_last(self):
+        return self.shutdown_when_frames_last
 
 
 def add_q_model_handler(connection, cursor, id_, date_time_created, description):
