@@ -146,7 +146,7 @@ def get_race_objects_handler(connection, cursor, ultimate_performance_mode_entri
 
 
 def get_race_objects_in_replay_buffer_handler(connection, cursor):
-    cursor.execute('SELECT * FROM races WHERE skip_replay_buffer_storage == 0')
+    cursor.execute('SELECT * FROM races WHERE skip_replay_buffer_storage == 0 and ultimate_performance_mode == 0')
     datas = cursor.fetchall()
     return [RaceObject(data) for data in datas]
 
