@@ -4,4 +4,3 @@ sandbox/
 **/__pycache__/
 /client_driver/config/hyper_parameters.py
 /server/config/hyper_parameters.py
-*.ipynb
